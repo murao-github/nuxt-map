@@ -18,3 +18,15 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## ブランチ命名規則
+要件ブランチ
+
+```
+feature/#00-<要件名>
+```
+
+バグ修正ブランチ
+```
+fix/#00-<バグ名>
+```
