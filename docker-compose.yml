@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    build: .
+    # Forward port 3000
+    ports:
+      - "3000:3000"
+    # Keep booting
+    tty: true

@@ -1,0 +1,13 @@
+{
+    "name": "vuex-map",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "web",
+    "extensions": [
+        "mhutchie.git-graph",
+        "octref.vetur",
+    ],
+    "forwardPorts": [
+        8080
+    ],
+    "workspaceFolder": "/app",
+}
