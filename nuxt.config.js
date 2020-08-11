@@ -34,7 +34,11 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [
+    {
+      src:"~plugins/vue2-google-maps.js"
+    },
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -55,6 +59,7 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
   ],
   /*
    ** Axios module configuration
@@ -65,5 +70,23 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+      extend(config, ctx) {
+      //add for vue2-google-maps
+      if (!ctx.isClient) {
+        // This instructs Webpack to include `vue2-google-maps`'s Vue files
+        // for server-side rendering
+        config.externals.splice(0, 0, function (context, request, callback) {
+          if (/^vue2-google-maps($|\/)/.test(request)) {
+          callback(null, false)
+          } else {
+            callback()
+          }
+        })
+      }
+    }
+  },
+  vendor: [
+    "vue2-google-maps"
+  ],
 }
