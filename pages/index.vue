@@ -1,65 +1,42 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        nuxt-map
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+  <v-layout row justify-center align-center>
+    <GmapMap
+      :center="{
+        lat: 34.666252,
+        lng: 133.918104,
+      }"
+      :zoom="13"
+      map-type-id="roadmap"
+      style="width: 100vw; height: 100vh;"
+    >
+      <GmapMarker
+        v-for="(m, index) in markers"
+        :key="index"
+        :position="m.position"
+        :clickable="true"
+        :draggable="true"
+        @click="center = m.position"
+      />
+    </GmapMap>
+  </v-layout>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      markers: [
+        { position: { lng: 10.2, lat: 10 } },
+        { position: { lng: 10.1, lat: 10 } },
+      ],
+    }
+  },
+}
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+<style scoped>
+.map {
+  height: 100vh;
+  width: 100wh;
 }
 </style>
