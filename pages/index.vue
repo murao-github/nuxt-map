@@ -1,33 +1,53 @@
 <template>
-  <v-layout row justify-center align-center>
-    <GmapMap
-      :center="{
-        lat: 34.666252,
-        lng: 133.918104,
-      }"
-      :zoom="13"
-      map-type-id="roadmap"
-      style="width: 100vw; height: 100vh;"
-    >
-      <GmapMarker
-        v-for="(m, index) in markers"
-        :key="index"
-        :position="m.position"
-        :clickable="true"
-        :draggable="true"
-        @click="center = m.position"
-      />
-    </GmapMap>
-  </v-layout>
+  <div class="contents">
+    <Navbar />
+    <div class="body">
+      <Sidebar />
+      <div class="main">
+        <GmapMap
+          :center="map.center"
+          :zoom="map.zoom"
+          map-type-id="roadmap"
+          class="googleMap"
+        >
+          <GmapMarker
+            v-for="(m, index) in markers"
+            :key="index"
+            :position="m.position"
+            :clickable="true"
+            :draggable="true"
+            @click="center = m.position"
+          />
+        </GmapMap>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      map: {
+        center: {
+          lat: 34.666252,
+          lng: 133.918104,
+        },
+        zoom: 13,
+      },
       markers: [
-        { position: { lng: 10.2, lat: 10 } },
-        { position: { lng: 10.1, lat: 10 } },
+        {
+          position: {
+            lat: 34.666252,
+            lng: 133.918104,
+          },
+        },
+        {
+          position: {
+            lat: 34.666252,
+            lng: 133.818104,
+          },
+        },
       ],
     }
   },
@@ -35,8 +55,18 @@ export default {
 </script>
 
 <style scoped>
-.map {
+.contents {
   height: 100vh;
-  width: 100wh;
+  width: 100vw;
+}
+.body {
+  display: flex;
+  height: 94vh;
+}
+.side {
+  width: 300px;
+}
+.main {
+  flex: 1;
 }
 </style>
