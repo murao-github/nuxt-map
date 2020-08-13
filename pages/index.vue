@@ -4,53 +4,39 @@
     <div class="body">
       <Sidebar />
       <div class="main">
-        <GmapMap
-          ref="map"
-          :center="map.center"
-          :zoom="map.zoom"
-          map-type-id="roadmap"
-          class="googleMap"
-        >
-          <GmapMarker
-            v-for="(m, index) in markers"
-            :key="index"
-            :position="m.position"
-            :clickable="true"
-            :draggable="true"
-            @click="center = m.position"
-          />
-        </GmapMap>
+        <div ref="googleMap" class="googleMap" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import GoogleMapsApiLoader from 'google-maps-api-loader'
+
 export default {
+  name: 'Map',
   data() {
     return {
-      map: {
+      google: null,
+      mapConfig: {
         center: {
-          lat: 34.666252,
-          lng: 133.918104,
+          lat: 35.68944,
+          lng: 139.69167,
         },
-        zoom: 13,
+        zoom: 17,
       },
-      markers: [
-        {
-          position: {
-            lat: 34.666252,
-            lng: 133.918104,
-          },
-        },
-        {
-          position: {
-            lat: 34.666252,
-            lng: 133.818104,
-          },
-        },
-      ],
     }
+  },
+  async mounted() {
+    this.google = await GoogleMapsApiLoader({
+      apiKey: process.env.API_KEY,
+    })
+    this.initializeMap()
+  },
+  methods: {
+    initializeMap() {
+      this.google.maps.Map(this.$refs.googleMap, this.mapConfig)
+    },
   },
 }
 </script>
