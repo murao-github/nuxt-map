@@ -5,6 +5,7 @@
       <Sidebar />
       <div class="main">
         <GmapMap
+          ref="map"
           :center="map.center"
           :zoom="map.zoom"
           map-type-id="roadmap"
@@ -68,5 +69,9 @@ export default {
 }
 .main {
   flex: 1;
+}
+.googleMap {
+  height: 100%;
+  width: 100%;
 }
 </style>
