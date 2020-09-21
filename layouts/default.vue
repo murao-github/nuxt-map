@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="contents">
+    <Navbar />
     <Nuxt />
   </div>
 </template>
@@ -15,6 +16,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+
+.contents {
+  height: 100vh;
+  width: 100vw;
 }
 
 *,
