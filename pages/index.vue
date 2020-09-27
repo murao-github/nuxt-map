@@ -1,6 +1,11 @@
 <template>
   <div class="body">
-    <Sidebar />
+    <div class="side">
+      <div>
+        <input v-model="text" type="text" placeholder="東京駅" />
+        <button @click="geocodeSearch">search</button>
+      </div>
+    </div>
     <div class="main">
       <div ref="googleMap" class="googleMap" />
     </div>
@@ -15,6 +20,7 @@ export default {
     return {
       google: null,
       map: null,
+      geocoder: null,
       mapConfig: {
         center: {
           lat: 34.666252,
@@ -35,7 +41,29 @@ export default {
     initializeMap() {
       const mapContainer = this.$refs.googleMap
       this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
-      console.log('Init map')
+      this.geocoder = new this.google.maps.Geocoder()
+    },
+    geocodeSearch(event) {
+      const address = this.text
+      // 検索文字列が空だった場合はreturn
+      if (!address) {
+        return
+      }
+      const map = this.map
+      this.geocoder.geocode({ address }, function (results, status) {
+        if (status === 'OK') {
+          // スポットが見つかった場合は、地図の中央位置を変更し、ピンを立てる
+          map.setCenter(results[0].geometry.location)
+          const marker = new this.google.maps.Marker({
+            map,
+            position: results[0].geometry.location,
+          })
+        } else {
+          alert(
+            'Geocode was not successful for the following reason: ' + status
+          )
+        }
+      })
     },
   },
 }
