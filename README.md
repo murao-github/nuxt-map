@@ -1,6 +1,6 @@
 # nuxt-map
 
-## Build Setup
+## ビルド手順
 
 ```bash
 # install dependencies
@@ -17,16 +17,11 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## branch命名ルール
 
-## ブランチ命名規則
-要件ブランチ
+以下のルールに従ってbranchの命名を行う。
 
-```
-feature/#00-<要件名>
-```
-
-バグ修正ブランチ
-```
-fix/#00-<バグ名>
-```
+| 種類 | branchのネーミングルール |
+| ---- | ---- |
+|機能追加系|`feature/#{ISSUE_ID}-#{branch_title_name}`|
+|ホットフィックス系|`hotfix/#{ISSUE_ID}-#{branch_title_name}`|
